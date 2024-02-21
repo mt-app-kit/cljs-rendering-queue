@@ -29,7 +29,7 @@
 ; {:my-renderer {:destroy-duration  250
 ;                :queue-behavior    :push
 ;                :render-duration   250
-;                :render-log        {:my-content {:my-event ["..." "..."]}}
+;                :render-log        {:my-content {:rendered-at ["..."]}}
 ;                :rendered-contents [:my-content]
 ;                :renderer-capacity 256
 ;                :rerender-same?    true

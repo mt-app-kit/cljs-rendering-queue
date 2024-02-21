@@ -9,6 +9,24 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn error-catched
+  ; @ignore
+  ;
+  ; @description
+  ; Throws an error with the given error ID.
+  ;
+  ; @param (keyword) renderer-id
+  ; @param (keyword) error-id
+  ;
+  ; @usage
+  ; (error-catched :my-renderer :my-error)
+  [renderer-id error-id]
+  (let [error-message (str error-id " error catched in renderer: " renderer-id)]
+       (throw (js/Error. error-message))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn queue-task!
   ; @ignore
   ;
@@ -90,7 +108,7 @@
 
 (defn destruct-renderer!
   ; @description
-  ; Clears the properties and rendered contents of the renderer (from the 'RENDERERS' atom)
+  ; Clears the properties and the rendered contents of the renderer (from the 'RENDERERS' atom)
   ;
   ; @param (keyword) renderer-id
   ;
@@ -186,12 +204,14 @@
   ; @param (keyword) content-id
   ;
   ; @usage
-  ; (destroy-content! :my-renderer :my-content)
+  ; (request-destroying! :my-renderer :my-content)
   [renderer-id content-id]
-  (if (env/content-not-rendered? renderer-id content-id)
-      (ignore-destroying!        renderer-id content-id)
-      (cond (env/renderer-reserved? renderer-id) (queue-task!      renderer-id content-id request-destroying!)
-            :destroy-content                     (destroy-content! renderer-id content-id))))
+  (if (env/content-rendered? renderer-id content-id)
+      (cond (env/renderer-not-inited? renderer-id) (error-catched      renderer-id :uninitialized-renderer)
+            (env/renderer-reserved?   renderer-id) (queue-task!        renderer-id content-id request-destroying!)
+            :destroy-content                       (destroy-content!   renderer-id content-id))
+      (cond (env/renderer-not-inited? renderer-id) (error-catched      renderer-id :uninitialized-renderer)
+            :ignore-destroying                     (ignore-destroying! renderer-id content-id))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -273,13 +293,15 @@
   ; @param (keyword) content-id
   ;
   ; @usage
-  ; (destroy-rendering! :my-renderer :my-content)
+  ; (request-rendering! :my-renderer :my-content)
   [renderer-id content-id]
   (if (env/content-rendered? renderer-id content-id)
-      (cond (env/renderer-reserved?        renderer-id) (queue-task!       renderer-id content-id request-rendering!)
+      (cond (env/renderer-not-inited?      renderer-id) (error-catched     renderer-id :uninitialized-renderer)
+            (env/renderer-reserved?        renderer-id) (queue-task!       renderer-id content-id request-rendering!)
             (env/rerender-same-enabled?    renderer-id) (rerender-content! renderer-id content-id)
             :ignore-rendering                           (ignore-rendering! renderer-id content-id))
-      (cond (env/renderer-reserved?        renderer-id) (queue-task!       renderer-id content-id request-rendering!)
+      (cond (env/renderer-not-inited?      renderer-id) (error-catched     renderer-id :uninitialized-renderer)
+            (env/renderer-reserved?        renderer-id) (queue-task!       renderer-id content-id request-rendering!)
             (env/renderer-not-at-capacity? renderer-id) (render-content!   renderer-id content-id)
             (env/pushed-rendering-enabled? renderer-id) (push-content!     renderer-id content-id)
             (env/queued-rendering-enabled? renderer-id) (queue-task!       renderer-id content-id request-rendering!)

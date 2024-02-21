@@ -27,6 +27,43 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn renderer-inited?
+  ; @ignore
+  ;
+  ; @description
+  ; Returns TRUE if the renderer is already initialized.
+  ;
+  ; @param (keyword) renderer-id
+  ;
+  ; @usage
+  ; (renderer-inited? :my-renderer)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [renderer-id]
+  (-> @state/RENDERERS (get renderer-id) map?))
+
+(defn renderer-not-inited?
+  ; @ignore
+  ;
+  ; @description
+  ; Returns TRUE if the renderer is not initialized.
+  ;
+  ; @param (keyword) renderer-id
+  ;
+  ; @usage
+  ; (renderer-not-inited? :my-renderer)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [renderer-id]
+  (-> @state/RENDERERS (get renderer-id) nil?))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn get-destroy-duration
   ; @ignore
   ;
@@ -219,3 +256,21 @@
   [renderer-id content-id]
   (let [rendered-contents (get-renderer-prop renderer-id :rendered-contents)]
        (vector/not-contains-item? rendered-contents content-id)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn get-rendered-contents
+  ; @description
+  ; Returns the rendered contents of the renderer.
+  ;
+  ; @param (keyword) renderer-id
+  ;
+  ; @usage
+  ; (get-rendered-contents :my-renderer)
+  ; =>
+  ; [:my-content]
+  ;
+  ; @return (keywords in vector)
+  [renderer-id]
+  (get-renderer-prop renderer-id :rendered-contents))
