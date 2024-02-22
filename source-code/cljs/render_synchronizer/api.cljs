@@ -1,9 +1,9 @@
 
-(ns rendering-queue.api
-    (:require [rendering-queue.content.env :as content.env]
-              [rendering-queue.content.side-effects :as content.side-effects]
-              [rendering-queue.renderer.side-effects :as renderer.side-effects]
-              [rendering-queue.renderer.state :as renderer.state]))
+(ns render-synchronizer.api
+    (:require [render-synchronizer.content.env :as content.env]
+              [render-synchronizer.content.side-effects :as content.side-effects]
+              [render-synchronizer.renderer.side-effects :as renderer.side-effects]
+              [render-synchronizer.renderer.state :as renderer.state]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -96,20 +96,20 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (rendering-queue.content.env/*)
+; @redirect (render-synchronizer.content.env/*)
 (def get-rendered-contents content.env/get-rendered-contents)
 (def get-first-content     content.env/get-first-content)
 (def content-rendered?     content.env/content-rendered?)
 (def content-not-rendered? content.env/content-not-rendered?)
 
-; @redirect (rendering-queue.content.side-effects/*)
+; @redirect (render-synchronizer.content.side-effects/*)
 (def request-destroying! content.side-effects/request-destroying!)
 (def request-rendering!  content.side-effects/request-rendering!)
 
-; @redirect (rendering-queue.renderer.side-effects/*)
+; @redirect (render-synchronizer.renderer.side-effects/*)
 (def init-renderer!     renderer.side-effects/init-renderer!)
 (def update-renderer!   renderer.side-effects/update-renderer!)
 (def destruct-renderer! renderer.side-effects/destruct-renderer!)
 
-; @redirect (rendering-queue.renderer.state/*)
+; @redirect (render-synchronizer.renderer.state/*)
 (def RENDERERS renderer.state/RENDERERS)

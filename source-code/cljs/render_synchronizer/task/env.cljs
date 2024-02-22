@@ -1,6 +1,6 @@
 
-(ns rendering-queue.task.env
-    (:require [rendering-queue.renderer.env :as renderer.env]
+(ns render-synchronizer.task.env
+    (:require [render-synchronizer.renderer.env :as renderer.env]
               [fruits.vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------

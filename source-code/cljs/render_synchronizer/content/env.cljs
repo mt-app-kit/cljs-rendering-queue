@@ -1,6 +1,6 @@
 
-(ns rendering-queue.content.env
-    (:require [rendering-queue.renderer.env :as renderer.env]
+(ns render-synchronizer.content.env
+    (:require [render-synchronizer.renderer.env :as renderer.env]
               [fruits.vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------
@@ -36,7 +36,7 @@
   [renderer-id]
   (let [rendered-contents (get-rendered-contents renderer-id)]
        (first rendered-contents)))
- 
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 

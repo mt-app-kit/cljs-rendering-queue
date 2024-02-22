@@ -1,9 +1,9 @@
 
-# cljs-rendering-queue
+# cljs-render-synchronizer
 
 ### Overview
 
-The <strong>cljs-rendering-queue</strong> is a simple rendering queue handler for Clojure projects.
+The <strong>cljs-render-synchronizer</strong> is a simple rendering queue handler for Clojure projects.
 
 ### Description
 
@@ -15,18 +15,18 @@ such as limiting the number of rendered contents, allowing only one content to r
 ### deps.edn
 
 ```
-{:deps {mt-app-kit/cljs-rendering-queue {:git/url "https://github.com/mt-app-kit/cljs-rendering-queue"
-                                         :sha     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}}}
+{:deps {mt-app-kit/cljs-render-synchronizer {:git/url "https://github.com/mt-app-kit/cljs-render-synchronizer"
+                                             :sha     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}}}
 ```
 
 ### Current version
 
-Check out the latest commit on the [release branch](https://github.com/mt-app-kit/cljs-rendering-queue/tree/release).
+Check out the latest commit on the [release branch](https://github.com/mt-app-kit/cljs-render-synchronizer/tree/release).
 
 ### Documentation
 
-The <strong>cljs-rendering-queue</strong> functional documentation is [available here](https://mt-app-kit.github.io/cljs-rendering-queue).
+The <strong>cljs-render-synchronizer</strong> functional documentation is [available here](https://mt-app-kit.github.io/cljs-render-synchronizer).
 
 ### Changelog
 
-You can track the changes of the <strong>cljs-rendering-queue</strong> library [here](CHANGES.md).
+You can track the changes of the <strong>cljs-render-synchronizer</strong> library [here](CHANGES.md).

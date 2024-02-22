@@ -1,11 +1,11 @@
 
-(ns rendering-queue.task.side-effects
+(ns render-synchronizer.task.side-effects
     (:require [time.api :as time]
-              [rendering-queue.renderer.state :as renderer.state]
+              [render-synchronizer.renderer.state :as renderer.state]
               [fruits.vector.api :as vector]
-              [rendering-queue.task.env :as task.env]
-              [rendering-queue.renderer.env :as renderer.env]
-              [rendering-queue.content.env :as content.env]
+              [render-synchronizer.task.env :as task.env]
+              [render-synchronizer.renderer.env :as renderer.env]
+              [render-synchronizer.content.env :as content.env]
               [fruits.map.api :refer [dissoc-in]]))
 
 ;; ----------------------------------------------------------------------------

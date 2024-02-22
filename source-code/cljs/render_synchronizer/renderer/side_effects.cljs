@@ -1,8 +1,8 @@
 
-(ns rendering-queue.renderer.side-effects
-    (:require [rendering-queue.renderer.prototypes :as renderer.prototypes]
-              [rendering-queue.renderer.state :as renderer.state]))
- 
+(ns render-synchronizer.renderer.side-effects
+    (:require [render-synchronizer.renderer.prototypes :as renderer.prototypes]
+              [render-synchronizer.renderer.state :as renderer.state]))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 

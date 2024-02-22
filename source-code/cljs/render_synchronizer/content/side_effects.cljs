@@ -1,6 +1,6 @@
 
-(ns rendering-queue.content.side-effects
-    (:require [rendering-queue.task.side-effects :as task.side-effects]
+(ns render-synchronizer.content.side-effects
+    (:require [render-synchronizer.task.side-effects :as task.side-effects]
               [fruits.random.api :as random]))
 
 ;; ----------------------------------------------------------------------------

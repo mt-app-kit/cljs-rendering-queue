@@ -1,5 +1,5 @@
 
-(ns rendering-queue.renderer.state
+(ns render-synchronizer.renderer.state
     (:require [reagent.core :as reagent]))
 
 ;; ----------------------------------------------------------------------------
