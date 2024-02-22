@@ -5,6 +5,13 @@
 
 The <strong>cljs-rendering-queue</strong> is a simple rendering queue handler for Clojure projects.
 
+### Description
+
+This library is designed for maintaining a rendering logic for content renderers (e.g., modals, notifications, ...),
+such as limiting the number of rendered contents, allowing only one content to render at a time (per renderer), etc.
+
+> Functions of this library don't have side effects in addition to maintaining a list of identifiers of rendered contents.
+
 ### deps.edn
 
 ```

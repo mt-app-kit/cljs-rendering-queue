@@ -1,5 +1,5 @@
 
-(ns rendering-queue.state
+(ns rendering-queue.renderer.state
     (:require [reagent.core :as reagent]))
 
 ;; ----------------------------------------------------------------------------
@@ -17,10 +17,11 @@
 ;    :rendered-contents (keywords in vector)
 ;    :renderer-capacity (integer)
 ;    :rerender-same? (boolean)
-;    :reserved? (boolean)
+;    :reserved-for (keyword)
 ;    :task-queue (vectors in vector)
 ;     [(keyword) renderer-id
 ;      (keyword) content-id
+;      (keyword) task-id
 ;      (function) task-f]}}
 ;
 ; @usage
@@ -33,6 +34,5 @@
 ;                :rendered-contents [:my-content]
 ;                :renderer-capacity 256
 ;                :rerender-same?    true
-;                :rendering-queue   [:another-content]
 ;                :task-queue        []}}
 (def RENDERERS (reagent/atom {}))
