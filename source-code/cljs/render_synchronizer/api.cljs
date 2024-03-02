@@ -10,13 +10,15 @@
 
 ; @tutorial Demo
 ;
-; @--- Initializing a renderer
+; @---
+; ;; Initializing a renderer:
 ; (init-renderer! :my-notifications {:destroy-duration  250   ;; <- Provides time for animated removing.
 ;                                    :render-duration   250   ;; <- Provides time for animated rendering.
 ;                                    :queue-behavior    :wait ;; <- How should the renderer behave when it is at capacity.
 ;                                    :renderer-capacity 1})   ;; <- Allows only one content to be rendered at a time.
 ;
-; @--- Rendering the first content
+; @---
+; ;; Rendering the first content:
 ; ;; Immediatelly adds the ID of the first notification to the list of rendered contents.
 ; ;; The renderer stays reserved for a 250ms animated rendering time (set above).
 ; (request-rendering! :my-notifications :my-first-notification)
@@ -26,7 +28,8 @@
 ; =>
 ; [:my-first-notification]
 ;
-; @--- Rendering the second content
+; @---
+; ;; Rendering the second content:
 ; ;; The capacity of the renderer is 1 (set above). Therefore; it doesn't add the ID of the second notification to the list of rendered contents.
 ; ;; The queue behavior is set to ':wait' (set above). Therefore; it adds the ID of the second notification to the rendering queue.
 ; (request-rendering! :my-notifications :my-second-notification)
@@ -36,7 +39,8 @@
 ; =>
 ; [:my-first-notification]
 ;
-; @--- Removing the first content
+; @---
+; ;; Removing the first content:
 ; ;; Immediatelly removes the ID of the first notification from the list of rendered contents.
 ; ;; The renderer stays reserved for a 250ms animated removing time (set above).
 ; ;; Adds the ID of the second notification (waited in the rendering queue) to the list of rendered contents.
