@@ -1,7 +1,7 @@
 
 (ns render-synchronizer.renderer.side-effects
     (:require [render-synchronizer.renderer.prototypes :as renderer.prototypes]
-              [render-synchronizer.renderer.state :as renderer.state]))
+              [render-synchronizer.renderer.state      :as renderer.state]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

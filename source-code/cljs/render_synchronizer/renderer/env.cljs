@@ -1,7 +1,7 @@
 
 (ns render-synchronizer.renderer.env
-    (:require [render-synchronizer.renderer.state :as renderer.state]
-              [fruits.vector.api :as vector]))
+    (:require [fruits.vector.api                  :as vector]
+              [render-synchronizer.renderer.state :as renderer.state]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

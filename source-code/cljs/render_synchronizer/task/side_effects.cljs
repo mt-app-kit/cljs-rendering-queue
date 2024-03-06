@@ -1,12 +1,12 @@
 
 (ns render-synchronizer.task.side-effects
-    (:require [time.api :as time]
+    (:require [fruits.map.api                     :refer [dissoc-in]]
+              [fruits.vector.api                  :as vector]
+              [render-synchronizer.content.env    :as content.env]
+              [render-synchronizer.renderer.env   :as renderer.env]
               [render-synchronizer.renderer.state :as renderer.state]
-              [fruits.vector.api :as vector]
-              [render-synchronizer.task.env :as task.env]
-              [render-synchronizer.renderer.env :as renderer.env]
-              [render-synchronizer.content.env :as content.env]
-              [fruits.map.api :refer [dissoc-in]]))
+              [render-synchronizer.task.env       :as task.env]
+              [time.api                           :as time]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

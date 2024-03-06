@@ -1,7 +1,7 @@
 
 (ns render-synchronizer.task.env
-    (:require [render-synchronizer.renderer.env :as renderer.env]
-              [fruits.vector.api :as vector]))
+    (:require [fruits.vector.api                :as vector]
+              [render-synchronizer.renderer.env :as renderer.env]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

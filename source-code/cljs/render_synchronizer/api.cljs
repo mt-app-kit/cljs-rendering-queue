@@ -1,9 +1,9 @@
 
 (ns render-synchronizer.api
-    (:require [render-synchronizer.content.env :as content.env]
-              [render-synchronizer.content.side-effects :as content.side-effects]
+    (:require [render-synchronizer.content.env           :as content.env]
+              [render-synchronizer.content.side-effects  :as content.side-effects]
               [render-synchronizer.renderer.side-effects :as renderer.side-effects]
-              [render-synchronizer.renderer.state :as renderer.state]))
+              [render-synchronizer.renderer.state        :as renderer.state]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
