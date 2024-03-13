@@ -19,7 +19,7 @@
 ;
 ; @---
 ; ;; Rendering the first content:
-; ;; Immediatelly adds the ID of the first notification to the list of rendered contents.
+; ;; Immediately adds the ID of the first notification to the list of rendered contents.
 ; ;; The renderer stays reserved for a 250ms animated rendering time (set above).
 ; (request-rendering! :my-notifications :my-first-notification)
 ;
@@ -41,7 +41,7 @@
 ;
 ; @---
 ; ;; Removing the first content:
-; ;; Immediatelly removes the ID of the first notification from the list of rendered contents.
+; ;; Immediately removes the ID of the first notification from the list of rendered contents.
 ; ;; The renderer stays reserved for a 250ms animated removing time (set above).
 ; ;; Adds the ID of the second notification (waited in the rendering queue) to the list of rendered contents.
 ; ;; The renderer stays reserved for a 250ms animated rendering time (set above).
