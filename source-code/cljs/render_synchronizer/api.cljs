@@ -30,7 +30,7 @@
 ;
 ; @---
 ; ;; Rendering the second content:
-; ;; The capacity of the renderer is 1 (set above). Therefore; it doesn't add the ID of the second notification to the list of rendered contents.
+; ;; The capacity of the renderer is 1 (set above). Therefore; it does not add the ID of the second notification to the list of rendered contents.
 ; ;; The queue behavior is set to ':wait' (set above). Therefore; it adds the ID of the second notification to the rendering queue.
 ; (request-rendering! :my-notifications :my-second-notification)
 ;

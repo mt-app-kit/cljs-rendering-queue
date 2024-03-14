@@ -59,7 +59,7 @@
 
 (defn content-not-rendered?
   ; @description
-  ; Returns TRUE if the list of rendered contents of the renderer doesn't contain the given content ID.
+  ; Returns TRUE if the list of rendered contents of the renderer does not contain the given content ID.
   ;
   ; @param (keyword) renderer-id
   ; @param (keyword) content-id
