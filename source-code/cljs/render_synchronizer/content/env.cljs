@@ -1,7 +1,7 @@
 
 (ns render-synchronizer.content.env
     (:require [fruits.vector.api                :as vector]
-              [render-synchronizer.renderer.env :as renderer.env]))
+              [common-state.api :as common-state]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -19,7 +19,7 @@
   ;
   ; @return (keywords in vector)
   [renderer-id]
-  (renderer.env/get-renderer-state renderer-id :rendered-contents))
+  (common-state/get-state :render-synchronizer :renderers renderer-id :rendered-contents))
 
 (defn get-first-content
   ; @description
