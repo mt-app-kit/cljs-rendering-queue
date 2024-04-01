@@ -19,7 +19,7 @@
   ;
   ; @return (keywords in vector)
   [renderer-id]
-  (common-state/get-state :render-synchronizer :renderers renderer-id :rendered-contents))
+  (common-state/get-state :render-synchronizer renderer-id :rendered-contents))
 
 (defn get-first-content
   ; @description

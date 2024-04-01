@@ -43,7 +43,7 @@
   ; (log-render-event! :my-renderer :my-content :xxxx :my-event)
   [renderer-id content-id _ event-key]
   (let [timestamp (time/elapsed)]
-       (common-state/update-state! :render-synchronizer :renderers update [renderer-id :render-log content-id event-key] vector/conj-item timestamp)))
+       (common-state/update-state! :render-synchronizer renderer-id update-in [:render-log content-id event-key] vector/conj-item timestamp)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@
    (reserve-renderer! renderer-id content-id task-id 0))
 
   ([renderer-id _ task-id delay]
-   (letfn [(f0 [] (common-state/assoc-state! :render-synchronizer :renderers renderer-id :reserved-for task-id))]
+   (letfn [(f0 [] (common-state/assoc-state! :render-synchronizer renderer-id :reserved-for task-id))]
           (time/set-timeout! f0 delay))))
 
 (defn free-up-renderer!
@@ -87,7 +87,7 @@
    (free-up-renderer! renderer-id content-id task-id 0))
 
   ([renderer-id _ _ delay]
-   (letfn [(f0 [] (common-state/dissoc-state! :render-synchronizer :renderers renderer-id :reserved-for))]
+   (letfn [(f0 [] (common-state/dissoc-state! :render-synchronizer renderer-id :reserved-for))]
           (time/set-timeout! f0 delay))))
 
 ;; ----------------------------------------------------------------------------
@@ -107,7 +107,7 @@
   ; @usage
   ; (queue-task! :my-renderer :my-content :xxxx request-rendering!)
   [renderer-id content-id task-id task-f]
-  (common-state/update-state! :render-synchronizer :renderers update-in [renderer-id :task-queue] vector/conj-item [renderer-id content-id task-id task-f]))
+  (common-state/update-state! :render-synchronizer renderer-id update :task-queue vector/conj-item [renderer-id content-id task-id task-f]))
 
 (defn do-task-from-queue!
   ; @ignore
@@ -128,7 +128,7 @@
 
   ([renderer-id _ task-id delay]
    (letfn [(f0 [] (when-let [[_ content-id _ task-f] (task.env/get-next-task renderer-id task-id)]
-                            (common-state/update-state! :render-synchronizer :renderers update-in [renderer-id :task-queue] vector/remove-first-item)
+                            (common-state/update-state! :render-synchronizer renderer-id update :task-queue vector/remove-first-item)
                             (task-f renderer-id content-id task-id)))]
           (time/set-timeout! f0 delay))))
 
@@ -150,7 +150,7 @@
   [renderer-id content-id task-id]
   (reserve-renderer! renderer-id content-id task-id)
   (log-render-event! renderer-id content-id task-id :destroyed-at)
-  (common-state/update-state! :render-synchronizer :renderers update-in [renderer-id :rendered-contents] vector/remove-item content-id)
+  (common-state/update-state! :render-synchronizer renderer-id update :rendered-contents vector/remove-item content-id)
   (let [destroy-duration (task.env/get-destroy-duration renderer-id task-id)]
        (if (task.env/any-task-to-do? renderer-id task-id)
            (do-task-from-queue!      renderer-id content-id task-id destroy-duration)
@@ -212,7 +212,7 @@
   [renderer-id content-id task-id]
   (reserve-renderer! renderer-id content-id task-id)
   (log-render-event! renderer-id content-id task-id :rendered-at)
-  (common-state/update-state! :render-synchronizer :renderers update-in [renderer-id :rendered-contents] vector/conj-item content-id)
+  (common-state/update-state! :render-synchronizer renderer-id update :rendered-contents vector/conj-item content-id)
   (let [render-duration (task.env/get-render-duration renderer-id task-id)]
        (if (task.env/any-task-to-do? renderer-id task-id)
            (do-task-from-queue! renderer-id content-id task-id render-duration)

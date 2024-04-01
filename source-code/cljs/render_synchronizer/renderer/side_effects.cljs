@@ -28,7 +28,7 @@
   ; (init-renderer! :my-renderer {...})
   [renderer-id renderer-props]
   (let [renderer-props (renderer.prototypes/renderer-props-prototype renderer-id renderer-props)]
-       (common-state/assoc-state! :render-synchronizer :renderers renderer-id renderer-props)))
+       (common-state/assoc-state! :render-synchronizer renderer-id renderer-props)))
 
 (defn update-renderer!
   ; @description
@@ -46,7 +46,7 @@
   ; @usage
   ; (update-renderer! :my-renderer {...})
   [renderer-id renderer-props]
-  (common-state/update-state! :render-synchronizer :renderers update renderer-id merge renderer-props))
+  (common-state/update-state! :render-synchronizer renderer-id merge renderer-props))
 
 (defn destruct-renderer!
   ; @description
@@ -57,4 +57,4 @@
   ; @usage
   ; (destruct-renderer! :my-renderer)
   [renderer-id]
-  (common-state/dissoc-state! :render-synchronizer :renderers renderer-id))
+  (common-state/dissoc-state! :render-synchronizer renderer-id))

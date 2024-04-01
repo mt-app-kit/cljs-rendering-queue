@@ -11,15 +11,15 @@
 ;
 ; @---
 ; ;; Initializing a renderer:
-; (init-renderer! :my-notifications {:destroy-duration  250   ;; <- Provides time for animated removing.
-;                                    :render-duration   250   ;; <- Provides time for animated rendering.
+; (init-renderer! :my-notifications {:destroy-duration  250   ;; <- Timeout for animated removing.
+;                                    :render-duration   250   ;; <- Timeout for animated rendering.
 ;                                    :queue-behavior    :wait ;; <- How should the renderer behave when it is at capacity.
 ;                                    :renderer-capacity 1})   ;; <- Allows only one content to be rendered at a time.
 ;
 ; @---
 ; ;; Rendering the first content:
-; ;; Immediately adds the ID of the first notification to the list of rendered contents.
-; ;; The renderer stays reserved for a 250ms animated rendering time (set above).
+; ;; - Immediately adds the ID of the first notification to the list of rendered contents.
+; ;; - The renderer stays reserved for a 250ms animated rendering time (set above).
 ; (request-rendering! :my-notifications :my-first-notification)
 ;
 ; ;; The list of rendered contents now contains its first content ID.
@@ -29,8 +29,9 @@
 ;
 ; @---
 ; ;; Rendering the second content:
-; ;; The capacity of the renderer is 1 (set above). Therefore; it does not add the ID of the second notification to the list of rendered contents.
-; ;; The queue behavior is set to ':wait' (set above). Therefore; it adds the ID of the second notification to the rendering queue.
+; ;; - The capacity of the renderer is 1 (set above).
+; ;; - The queue behavior is set to ':wait' (set above).
+; ;; - Therefore; it adds the ID of the second notification to the rendering queue (instead of adding it to the list of rendered contents).
 ; (request-rendering! :my-notifications :my-second-notification)
 ;
 ; ;; The list of rendered contents still contains only one (the first) content ID.
@@ -40,10 +41,10 @@
 ;
 ; @---
 ; ;; Removing the first content:
-; ;; Immediately removes the ID of the first notification from the list of rendered contents.
-; ;; The renderer stays reserved for a 250ms animated removing time (set above).
-; ;; Adds the ID of the second notification (waited in the rendering queue) to the list of rendered contents.
-; ;; The renderer stays reserved for a 250ms animated rendering time (set above).
+; ;; - Immediately removes the ID of the first notification from the list of rendered contents.
+; ;; - The renderer stays reserved for a 250ms animated removing time (set above).
+; ;; - Adds the ID of the second notification (waited in the rendering queue) to the list of rendered contents.
+; ;; - The renderer stays reserved for a 250ms animated rendering time (set above).
 ; (request-destroying! :my-notifications :my-first-notification)
 ;
 ; ;; Removing the ID of the first notification from the list of rendered contents allowed the second notification to be rendered.
@@ -56,31 +57,34 @@
 
 ; @tutorial Queue behavior
 ;
-; Renderers can behave three different ways when they are at capacity and a rendering request is initiated.
+; Renderers can behave different ways (3) when they are at capacity and a rendering request is initiated.
 ;
 ; @title ignore
-; The '{:queue-behavior :ignore}' setting instructs the renderer to ignore content rendering requests that are initiated when the renderer is at capacity.
+; The '{:queue-behavior :ignore}' setting:
+; Instructs the renderer to ignore content rendering requests that are initiated when the renderer is at capacity.
 ;
 ; @title push
-; The '{:queue-behavior :push}' setting instructs the renderer to always remove the first content in order to free up capacity for the new content.
+; The '{:queue-behavior :push}' setting:
+; Instructs the renderer to always remove the first content in order to free up capacity for the new content.
 ;
 ; @title wait
-; The '{:queue-behavior :wait}' setting instructs the renderer to place the new content onto a queue and only render it when removing former contents has freed up capacity.
+; The '{:queue-behavior :wait}' setting:
+; Instructs the renderer to place the new content onto a queue and only render it when removing former contents has freed up capacity.
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @tutorial Rendering flowchart
+; @tutorial Rendering content flowchart
 ;
-; - The content is already rendered  ----------------> See below.
-;   - The renderer is working -----------------------> Waiting for renderer, then repeat.
-;   - The renderer is available ---------------------> See below.
-;     - Rerendering the same content is enabled -----> Rerendering content.
+; - The content is already rendered  ----------------> See below:
+;   - The renderer is working -----------------------> Waiting for the renderer, then repeat.
+;   - The renderer is available ---------------------> See below:
+;     - Rerendering the same content is enabled -----> Rerendering the content.
 ;     - Rerendering the same content is not enabled -> No-op.
-; - The content is not rendered ---------------------> See below.
-;   - The renderer is working -----------------------> Waiting for renderer, then repeat.
-;   - The renderer is available ---------------------> See below.
-;     - The renderer is not at capacity -------------> Rendering content.
+; - The content is not rendered ---------------------> See below:
+;   - The renderer is working -----------------------> Waiting for the renderer, then repeat.
+;   - The renderer is available ---------------------> See below:
+;     - The renderer is not at capacity -------------> Rendering the content.
 ;     - The renderer is at capacity (maximum number of contents are rendered)
 ;       - Pushed rendering is enabled ---------------> Destroying the first content, then rendering the new content.
 ;       - Queued rendering is enabled ---------------> Waiting for capacity, then repeat.
@@ -89,11 +93,11 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @tutorial Destroying flowchart
+; @tutorial Removing content flowchart
 ;
-; - The content is rendered -----> See below.
-;   - The renderer is working ---> Waiting for renderer, then repeat.
-;   - The renderer is available -> Destroying content.
+; - The content is rendered -----> See below:
+;   - The renderer is working ---> Waiting for the renderer, then repeat.
+;   - The renderer is available -> Removing the content.
 ; - The content is not rendered -> No-op.
 
 ;; ----------------------------------------------------------------------------

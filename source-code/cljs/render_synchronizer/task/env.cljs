@@ -22,7 +22,7 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (let [renderer-state (common-state/get-state :render-synchronizer :renderers renderer-id)]
+  (let [renderer-state (common-state/get-state :render-synchronizer renderer-id)]
        (nil? renderer-state)))
 
 ;; ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@
   ;
   ; @return (boolean)
   [renderer-id task-id]
-  (let [reserved-for (common-state/get-state :render-synchronizer :renderers renderer-id :reserved-for)]
+  (let [reserved-for (common-state/get-state :render-synchronizer renderer-id :reserved-for)]
        (and (-> reserved-for (not= nil))
             (-> reserved-for (not= task-id)))))
 
@@ -72,7 +72,7 @@
    (get-destroy-duration renderer-id task-id 1))
 
   ([renderer-id _ content-count]
-   (let [destroy-duration (common-state/get-state :render-synchronizer :renderers renderer-id :destroy-duration)]
+   (let [destroy-duration (common-state/get-state :render-synchronizer renderer-id :destroy-duration)]
         (* destroy-duration content-count))))
 
 (defn get-render-duration
@@ -96,7 +96,7 @@
    (get-render-duration renderer-id task-id 1))
 
   ([renderer-id _ content-count]
-   (let [render-duration (common-state/get-state :render-synchronizer :renderers renderer-id :render-duration)]
+   (let [render-duration (common-state/get-state :render-synchronizer renderer-id :render-duration)]
         (* render-duration content-count))))
 
 ;; ----------------------------------------------------------------------------
@@ -118,7 +118,7 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (if-let [task-queue (common-state/get-state :render-synchronizer :renderers renderer-id :task-queue)]
+  (if-let [task-queue (common-state/get-state :render-synchronizer renderer-id :task-queue)]
           (-> task-queue empty? not)))
 
 (defn get-next-task
@@ -141,7 +141,7 @@
   ;  (keyword) task-id
   ;  (function) task-f]
   [renderer-id _]
-  (if-let [task-queue (common-state/get-state :render-synchronizer :renderers renderer-id :task-queue)]
+  (if-let [task-queue (common-state/get-state :render-synchronizer renderer-id :task-queue)]
           (first task-queue)))
 
 ;; ----------------------------------------------------------------------------
@@ -163,7 +163,7 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (let [queue-behavior (common-state/get-state :render-synchronizer :renderers renderer-id :queue-behavior)]
+  (let [queue-behavior (common-state/get-state :render-synchronizer renderer-id :queue-behavior)]
        (= queue-behavior :push)))
 
 (defn queued-rendering-enabled?
@@ -182,7 +182,7 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (let [queue-behavior (common-state/get-state :render-synchronizer :renderers renderer-id :queue-behavior)]
+  (let [queue-behavior (common-state/get-state :render-synchronizer renderer-id :queue-behavior)]
        (= queue-behavior :wait)))
 
 (defn rerender-same-enabled?
@@ -201,7 +201,7 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (common-state/get-state :render-synchronizer :renderers renderer-id :rerender-same?))
+  (common-state/get-state :render-synchronizer renderer-id :rerender-same?))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -222,8 +222,8 @@
   ;
   ; @return (boolean)
   [renderer-id _]
-  (let [renderer-capacity (common-state/get-state :render-synchronizer :renderers renderer-id :renderer-capacity)
-        rendered-contents (common-state/get-state :render-synchronizer :renderers renderer-id :rendered-contents)]
+  (let [renderer-capacity (common-state/get-state :render-synchronizer renderer-id :renderer-capacity)
+        rendered-contents (common-state/get-state :render-synchronizer renderer-id :rendered-contents)]
        (vector/item-count? rendered-contents renderer-capacity)))
 
 (defn renderer-not-at-capacity?
